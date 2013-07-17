@@ -117,7 +117,11 @@ protected:
       last_exec_ = moveit_controller_manager::ExecutionStatus::SUCCEEDED;
     else
       if (state == actionlib::SimpleClientGoalState::ABORTED)
-        last_exec_ = moveit_controller_manager::ExecutionStatus::ABORTED;
+      {
+        // last_exec_ = moveit_controller_manager::ExecutionStatus::ABORTED;
+        last_exec_ = moveit_controller_manager::ExecutionStatus::SUCCEEDED;
+		ROS_WARN("HACK: Controller reported actionlib::SimpleClientGoalState::ABORTED -> accept anyway and set to ExecutionStatus::SUCCEEDED");
+      }
       else
         if (state == actionlib::SimpleClientGoalState::PREEMPTED)
           last_exec_ = moveit_controller_manager::ExecutionStatus::PREEMPTED;
